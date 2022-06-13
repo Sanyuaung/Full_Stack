@@ -1,0 +1,28 @@
+.scroll-table-container {
+    height: 450px;
+    /* width: 1220px; */
+    width: 100%;
+    overflow: scroll;
+    text-align: center;
+}
+h1{
+    color: #e20606;
+}
+span{
+    color: white;
+    font-weight: bold;
+}
+td{
+    font-size: 15px;
+    color: white;
+    background-color: #e28506;
+    height: 50px;
+    width: 250px;
+}
+th {
+    font-size: 15px;
+    height: 50px;
+    background-color: #e20606;
+    color: white;
+    width: 250px;
+}

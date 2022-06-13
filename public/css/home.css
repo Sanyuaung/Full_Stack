@@ -1,0 +1,30 @@
+#img{
+    margin-top: 35px;
+    opacity: 0.3;
+    width: 30%;
+    height: 30%;   
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+#HOME {
+    overflow: hidden;
+    font-size: 5em;
+    font-weight: bold;
+    background: -webkit-linear-gradient(rgb(161, 245, 6), rgb(241, 7, 163));
+    background-repeat: no-repeat;
+    background-size: 80%;
+    margin-top: 200px;
+    animation: animate 3s linear infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+@keyframes animate {
+    0% {
+        background-position: -500%;
+    }
+    100% {
+        background-position: 500%;
+    }
+}
