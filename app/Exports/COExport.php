@@ -38,6 +38,7 @@ class COExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoS
             $co->CONTACT_BIRTH_DATE,
             $co->CONTACT_IC,
             $co->CONTACT_MOBILE,
+            $co->CARD_CARDPLAN_ID,
             $co->CONTACT_EMPLOYER_NAME,
             $co->CONTACT_STAFF,
             $co->CUST_BRANCH_ID,
@@ -55,7 +56,7 @@ class COExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoS
     public function collection()
     {
         return collect(DB::connection('mysql2')->select("select $this->date as date,@row:=@row + 1 AS NO, F.CUST_ID,F.CUST_NAME,C.CONTACT_NAME, 
-        C.CONTACT_BIRTH_DATE,C.CONTACT_IC, C.CONTACT_MOBILE,
+        C.CONTACT_BIRTH_DATE,C.CONTACT_IC, C.CONTACT_MOBILE,A.CARD_CARDPLAN_ID,
         C.CONTACT_EMPLOYER_NAME, C.CONTACT_STAFF, A.CARD_BRANCH_ID AS CUST_BRANCH_ID,
         B.CSTMTACCT_ACCT_NO as ACCOUNT_NO,B.CSTMTACCT_YYYYMM AS STMT_MONTH, B.CSTMTACCT_CURRENCY AS CURRENCY,
         COALESCE(B.CSTMTACCT_ACCT_OPEN_BAL, 0) AS OPEN_BALANCE, E.ACCGRPLMT_CREDIT_LMT,
@@ -74,7 +75,7 @@ class COExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoS
     public function headings(): array
     {
         return [
-            "CUST_ID", "CUST_NAME", "CONTACT_NAME", "CONTACT_BIRTH_DATE", "CONTACT_IC", "CONTACT_MOBILE",
+            "CUST_ID", "CUST_NAME", "CONTACT_NAME", "CONTACT_BIRTH_DATE", "CONTACT_IC", "CONTACT_MOBILE","CARD_CARDPLAN_ID",
             "CONTACT_EMPLOYER_NAME", "CONTACT_STAFF", "CUST_BRANCH_ID", "ACCOUNT_NO",
             "STMT_MONTH", "CURRENCY", "OPEN_BALANCE", "ACCGRPLMT_CREDIT_LMT", "CLOSE_BALANCE", "CURR_AGE_CODE", "STATUS"
         ];

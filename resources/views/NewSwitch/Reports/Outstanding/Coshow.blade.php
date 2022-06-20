@@ -18,6 +18,7 @@
                     <th scope="col">CONTACT_BIRTH_DATE</th>
                     <th scope="col">CONTACT_IC</th>
                     <th scope="col">CONTACT_MOBILE</th>
+                    <th scope="col">CARD_CARDPLAN_ID</th>
                     <th scope="col">CONTACT_EMPLOYER_NAME</th>
                     <th scope="col">CONTACT_STAFF</th>
                     <th scope="col">CUST_BRANCH_ID</th>
@@ -40,6 +41,7 @@
                         <td>{{ $co->CONTACT_BIRTH_DATE }}</td>
                         <td>{{ $co->CONTACT_IC }}</td>
                         <td>{{ $co->CONTACT_MOBILE }}</td>
+                        <td>{{ $co->CARD_CARDPLAN_ID }}</td>
                         <td>{{ $co->CONTACT_EMPLOYER_NAME }}</td>
                         <td>{{ $co->CONTACT_STAFF }}</td>
                         <td>{{ $co->CUST_BRANCH_ID }}</td>

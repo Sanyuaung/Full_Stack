@@ -25,7 +25,7 @@ class CO extends Model
         if ($validation) {
             DB::connection('mysql2')->statement(DB::raw('set @row:=0'));
             $co = DB::connection('mysql2')->select("select $date as date,@row:=@row + 1 AS NO, F.CUST_ID,F.CUST_NAME,C.CONTACT_NAME, 
-            C.CONTACT_BIRTH_DATE, C.CONTACT_IC,C.CONTACT_MOBILE,
+            C.CONTACT_BIRTH_DATE, C.CONTACT_IC,C.CONTACT_MOBILE,A.CARD_CARDPLAN_ID,
             C.CONTACT_EMPLOYER_NAME, C.CONTACT_STAFF, A.CARD_BRANCH_ID AS CUST_BRANCH_ID,
             B.CSTMTACCT_ACCT_NO as ACCOUNT_NO,B.CSTMTACCT_YYYYMM AS STMT_MONTH, B.CSTMTACCT_CURRENCY AS CURRENCY,
             COALESCE(B.CSTMTACCT_ACCT_OPEN_BAL, 0) AS OPEN_BALANCE, E.ACCGRPLMT_CREDIT_LMT,
