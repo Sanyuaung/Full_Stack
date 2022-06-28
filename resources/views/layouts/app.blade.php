@@ -31,76 +31,75 @@ $data = json_decode(file_get_contents('http://forex.cbm.gov.mm/api/latest'));
 <body>
     <div class="wrapper">
         <input type="checkbox" id="navigation" />
-        <label id="label" for="navigation" title="MENU">
-            <span class="iconify" data-icon="ion:menu-sharp"></span>
+        <label id="label" for="navigation" title="MENU" class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
         </label>
         <nav>
+            <a href="{{ route('home') }}"><img src="{{ asset('images/logo.png') }} "></a>
             <ul class="navScroll">
-                <a href="{{ route('home') }}"><img src="{{ asset('images/logo.png') }} "></a>
                 @if (auth()->user()->department == 'Settlement' || auth()->user()->department == 'Admin')
                     <li>
-                        <a href="{{ route('JCBHome') }}"><span class="iconify" data-icon="logos:jcb"
-                                data-width="20"></span>&nbsp; JCB Post Files</a>
+                        <a id="a" href="{{ route('JCBHome') }}"><span class="iconify" data-icon="logos:jcb"
+                                data-width="20"></span>&nbsp; JCB Post Files News</a>
                     </li>
                     <li>
-                        <a href="{{ route('UPIHome') }}"><span class="iconify" data-icon="logos:unionpay"
-                                data-width="26"></span>&nbsp; Issuing UPI Settlement</a>
+                        <a id="a" href="{{ route('UPIHome') }}"><span class="iconify"
+                                data-icon="logos:unionpay" data-width="26"></span>&nbsp; Issuing UPI
+                            Settlement</a>
                     </li>
                 @endif
                 @if (auth()->user()->department == 'Settlement' || auth()->user()->department == 'Admin' || auth()->user()->department == 'Card')
                     <li>
-                        <a href="{{ route('visa') }}"><span class="iconify" data-icon="logos:visa"
+                        <a id="a" href="{{ route('visa') }}"><span class="iconify" data-icon="logos:visa"
                                 data-width="25"></span>&nbsp; Visa Transactions Add</a>
                     </li>
                 @endif
                 @if (auth()->user()->department == 'Card' || auth()->user()->department == 'Admin')
                     <li>
-                        <a href="{{ route('MPUHome') }}">MPU / UPI / JCB New Switch</a>
+                        <a id="a" href="{{ route('MPUHome') }}">MPU / UPI / JCB New Switch</a>
                     </li>
                     <li>
-                        <a href="{{ route('ccy') }}"><span class="iconify"
-                                data-icon="flat-color-icons:currency-exchange" data-width="25"></span>&nbsp; Daily
-                            Currency
-                            Rate</a>
+                        <a id="a" href="{{ route('ccy') }}"><span class="iconify"
+                                data-icon="flat-color-icons:currency-exchange" data-width="25"></span>&nbsp;
+                            Daily
+                            Currency Rate</a>
                     </li>
                     <li>
-                        <a href="{{ route('atmhome') }}"><span class="iconify" data-icon="emojione:atm-sign"
-                                data-width="20"></span>&nbsp;ATM Performance</a>
+                        <a id="a" href="{{ route('atmhome') }}"><span class="iconify"
+                                data-icon="emojione:atm-sign" data-width="20"></span>&nbsp;ATM Performance</a>
                     </li>
                     <li>
-                        <a href="{{ route('cohome') }}">Customer Outstanding</a>
+                        <a id="a" href="{{ route('cohome') }}">Customer Outstanding</a>
                     </li>
                     <li>
-                        <a href="{{ route('cardhome') }}"><span class="iconify" data-icon="noto-v1:credit-card"
-                                data-width="25"></span>&nbsp; MOB Card List</a>
+                        <a id="a" href="{{ route('cardhome') }}"><span class="iconify"
+                                data-icon="noto-v1:credit-card" data-width="25"></span>&nbsp; MOB Card List</a>
                     </li>
-                    {{-- <li>
-                        <a href="{{ route('onushome') }}"><img id="pos" 
-                                src="{{ asset('images/pos-terminal.png') }}" />dfsdfa
-                        </a>
-                    </li> --}}
                     <li>
-                        <a href="{{ route('onushome') }}"><span class="iconify"
-                                data-icon="fontisto:shopping-pos-machine" style="color: #2785f2;"
+                        <a id="a" href="{{ route('onushome') }}"><span class="iconify"
+                                data-icon="fontisto:shopping-pos-machine" style="color: #ff0000;"
                                 data-width="15"></span>&nbsp; Acquiring ONUS </a>
                     </li>
                     <li>
-                        <a href="{{ route('annualfeehome') }}">Credit_Card AnnualFee</a>
+                        <a id="a" href="{{ route('annualfeehome') }}">Credit_Card AnnualFee</a>
                     </li>
                     <li>
-                        <a href="{{ route('pssd01home') }}">PSSD_01</a>
+                        <a id="a" href="{{ route('pssd01home') }}">PSSD_01</a>
                     </li>
                     <li>
-                        <a href="{{ route('pssd02home') }}">PSSD_02</a>
+                        <a id="a" href="{{ route('pssd02home') }}">PSSD_02</a>
                     </li>
                     <li>
-                        <a href="{{ route('pssd04home') }}">PSSD_04</a>
+                        <a id="a" href="{{ route('pssd04home') }}">PSSD_04</a>
                     </li>
                 @endif
                 @if (auth()->user()->department == 'Admin')
                     <li>
-                        <a href="{{ route('userhome') }}">User Control&nbsp;<i class='fa-solid fa-users-gear fa-lg'
-                                style='color: red'></i>
+                        <a id="a" href="{{ route('userhome') }}">User Control&nbsp;<i
+                                class='fa-solid fa-users-gear fa-lg' style='color: red'></i>
                             </i></a>
                     </li>
                 @endif
@@ -111,9 +110,9 @@ $data = json_decode(file_get_contents('http://forex.cbm.gov.mm/api/latest'));
         </nav>
 
         <section>
-            <div class=" text-center">
-                <strong class="text-success">CBM Exchange Rate Latest</strong><br>
-                <strong class="text-success">USD - {{ $data->rates->USD }}</strong>
+            <div class="text-center">
+                <strong class="cbm">CBM Exchange Rate Latest</strong><br>
+                <strong class="cbm">USD - {{ $data->rates->USD }}</strong>
             </div>
             <main>
                 @yield('content')

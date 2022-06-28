@@ -1,32 +1,45 @@
-body, html{
+html{
   height:100%;
 }
 body{
   padding:0;
   margin:0;
-  text-transform: uppercase;  
-
+  text-transform: uppercase;
 }
 .wrapper{
   overflow:hidden;
 }
-
 img{
   margin-top: 3px;
   width: 30%;
   height: 30%;   
   display: block;
   margin-left: 80px;
-
+}
+.navScroll {
+  border-right: solid rgb(255, 0, 0);
+  background-color: rgb(255, 255, 255);
+  width: 270px;
+  height: 409px;
+  overflow-y: scroll; /* Add the ability to scroll */
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+.navScroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.navScroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 section{
   padding:30px 30px 0px 30px;
   -moz-transition:all 200ms ease-in;
   -webkit-transition:all 200ms ease-in;
   -o-transition:all 200ms ease-in;
   transition:all 200ms ease-in;
-
 }
 nav{
   position:fixed;
@@ -50,45 +63,31 @@ nav ul{
   background:rgb(255, 255, 255);
   overflow:hidden;
 }
-nav li{
+nav ul li{
   margin:0;
 }
-.navScroll {
-  border-right: solid rgb(255, 0, 0);
-  background-color: rgb(255, 255, 255);
-  width: 270px;
-  height: 500px;
-  overflow-y: scroll; /* Add the ability to scroll */
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.navScroll::-webkit-scrollbar {
-    display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.navScroll {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
 nav a {
+  display:block;
+  font-weight: bold;
   color:rgb(0, 0, 0);
   font-size:15px;
   font-family:'helvetica neue', helvetica, arial, sans-serif;
   text-decoration:none;
-  display:block;
   padding:12px;
   font-weight:300;
-  border-bottom:1px solid rgb(255, 0, 0);
+  border-bottom:3px solid rgb(255, 0, 0);
+  transition: 0.5s;
 }
-nav a:hover{
-  color:rgb(64, 0, 255);
+#a:hover{
+  font-family:'helvetica neue', helvetica, arial, sans-serif;
+  background: #ffba00;
+  border-radius: 0 0 30px 30px;
+  color: #ffffff;
+  font-weight: bold;
 }
 #label{
+  cursor: pointer;
   display:block;
-  font-family:'helvetica neue', helvetica, arial, sans-serif;
-  font-weight:700;
-  background:#b81e1e;
   width:42px;
   height:42px;
   line-height:42px;
@@ -105,6 +104,29 @@ nav a:hover{
   transition:all 200ms ease-in;
   z-index:500;
 }
+.hamburger-icon span {
+  height: 5px;
+  width: 40px;
+  background-color: rgb(0, 0, 0);
+  display: block;
+  margin: 5px 0px 5px 0px;
+  transition: 0.3s ease-in-out;
+  transform: none;
+}
+#navigation:checked ~ .hamburger-icon span:nth-of-type(2) {
+  transform: translate(0%, 175%) rotate(-45deg);
+  background-color:  #ff0000;
+}
+#navigation:checked ~ .hamburger-icon span:nth-of-type(3) {
+  transform: rotate(45deg);
+  background-color:  #ff0000;
+}
+#navigation:checked ~ .hamburger-icon span:nth-of-type(1) {
+  opacity: 0;
+}
+#navigation:checked ~ .hamburger-icon span:nth-of-type(4) {
+  opacity: 0;
+}
 input[type="checkbox"]{
   display:none;
 }
@@ -119,6 +141,10 @@ input[type="checkbox"]:checked ~ section{
   -moz-transform:translate3d(260px, 0, 0);
   -o-transform:translate3d(260px, 0, 0);
   transform:translate3d(260px, 0, 0);
+}
+.cbm{
+  color: #ff0028;
+  font-weight: bold;
 }
 footer {
   position: absolute;
@@ -150,4 +176,9 @@ footer {
   bottom: 0;
   border-bottom: none;
   color:rgb(205, 0, 0);
+}
+#pos{
+  width: 25px;
+  height: 25px; 
+  margin-right: 1em;
 }
