@@ -21,7 +21,7 @@
             @endif
             <div class="input-group mb-3">
                 <button class="btn bg-danger btn-outline-danger" type="submit" id="inputGroupFileAddon03">
-                    <span>MPU Upload&nbsp;<i class="fas fa-upload"></i></span>
+                    <span>Files Upload&nbsp;<i class="fas fa-upload"></i></span>
                 </button>
                 <input type="file" name="mpu" class="form-control btn-outline-danger text-warning" />
             </div>

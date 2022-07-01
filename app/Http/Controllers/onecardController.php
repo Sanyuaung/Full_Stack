@@ -6,11 +6,13 @@ use App\Exports\AtmExport;
 use App\Exports\cardlistExport;
 use App\Exports\CCAnnualFeeExport;
 use App\Exports\COExport;
+use App\Exports\creditstatusExport;
 use App\Exports\OnusExport;
 use App\Models\Atm;
 use App\Models\cardlist;
 use App\Models\CCAnnualFee;
 use App\Models\CO;
+use App\Models\creditstatus;
 use App\Models\onus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -152,5 +154,27 @@ class onecardController extends Controller
     {
         // dd($date2);
         return Excel::download(new OnusExport($startdate, $enddate), "Acquiring Report ($startdate to $enddate).xlsx");
+    }
+    public function credithome()
+    {
+        return view('NewSwitch/Reports/MOB_Credit_Status/credithome');
+    }
+    public function creditlistprint(Request $req)
+    {
+        $validation=$req->validate([
+            "month"=>"required",
+        ]);
+        $year=substr($req->month, 0, 4);
+        $month=substr($req->month, 5, 2);
+        $date=$year.$month;
+        $data=new creditstatus();
+        $creditstatus=$data->data($req);
+        // dd($creditstatus);
+        return view('NewSwitch/Reports/MOB_Credit_Status/creditshow', ['cr'=>$creditstatus,'date'=>$date]);
+    }
+    public function creditdownload($date)
+    {
+        return Excel::download(new creditstatusExport($date), "Credit Card Stauts ($date).xlsx");
+
     }
 }

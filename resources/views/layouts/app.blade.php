@@ -76,7 +76,12 @@ $data = json_decode(file_get_contents('http://forex.cbm.gov.mm/api/latest'));
                     </li>
                     <li>
                         <a id="a" href="{{ route('cardhome') }}"><span class="iconify"
-                                data-icon="noto-v1:credit-card" data-width="25"></span>&nbsp; MOB Card List</a>
+                                data-icon="noto-v1:credit-card" data-width="25"></span>&nbsp; MOB Debit Card List</a>
+                    </li>
+                    <li>
+                        <a id="a" href="{{ route('credithome') }}"><span class="iconify"
+                                data-icon="emojione:credit-card" data-width="25"></span>&nbsp; MOB Credit Card
+                            Status</a>
                     </li>
                     <li>
                         <a id="a" href="{{ route('onushome') }}"><span class="iconify"

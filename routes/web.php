@@ -123,12 +123,17 @@ Route::middleware('auth')->group(function () {
     Route::post('/cardlistprint', [onecardController::class, "cardprint"])->name("cardprint");
     Route::get('/carddownload/{startdate}/{enddate}/{brand}', [onecardController::class, "cardlistdownload"])->name("cardlistdownload");
     
+    // MOB_Credit_Card_status
+    Route::get('/creditlist', [onecardController::class, "credithome"])->name("credithome");
+    Route::post('/creditlistprint', [onecardController::class, "creditlistprint"])->name("creditlistprint");
+    Route::get('/creditdownload/{date}', [onecardController::class, "creditdownload"])->name("creditdownload");
+  
+    
     // Acquiring ONUS
     Route::get('/onus', [onecardController::class, "onushome"])->name("onushome");
     Route::post('/onusprint', [onecardController::class, "onusprint"])->name("onusprint");
     Route::get('/onusdownload/{startdate}/{enddate}', [onecardController::class, "onusdownload"])->name("onusdownload");
-
-    
+   
     
     // PSSD_01
     Route::get('/pssd01', [CBMController::class, "pssd01home"])->name("pssd01home");

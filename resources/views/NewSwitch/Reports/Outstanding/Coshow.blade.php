@@ -6,8 +6,7 @@
     <a class="float-start ml-15 mb-3" href="{{ route('codownload', $date) }}"
         onclick="return confirm('Are you sure you want to download?')" role="button">&nbsp;&nbsp;&nbsp;<span
             class="iconify" data-icon="ic:sharp-sim-card-download" style="color: #d80000;" data-width="25"></span></a>
-    <span class="float-end mb-3">Report Date :
-        {{ $date }}</span>
+    <span class="float-end mb-3">Report Date : {{ $date }}</span>
     <div class="scroll-table-container">
         <table class="table-bordered border-white scroll-table">
             <thead>
