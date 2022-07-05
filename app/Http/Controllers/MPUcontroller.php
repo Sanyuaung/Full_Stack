@@ -229,7 +229,7 @@ class MPUcontroller extends Controller
                             'filename'=>$filename,
                         ]);
             };
-        } elseif ($e=='INC' && $a==='11S' || $e=='INC' && $f==='01S') { // 11S 01S
+        } elseif ($e=='INC' && $a==='11S' || $e=='INC' && $f==='01S' || $e=='IUC' && $f==='01S') { // 11S 01S
             $files=file(request('mpu')->getRealPath());
             $data=(array_slice($files, 0));
             $parts =(array_chunk($data, 5000));
@@ -257,7 +257,7 @@ class MPUcontroller extends Controller
                             'inc11s' => $data->inc11s(),
                             'filename'=>$filename,
                         ]);
-        } elseif ($e=='INC' && $d==='901' || $e=='INC' && $f==='01S_902') { // 11S_901 01S_902
+        } elseif ($e=='INC' && $d==='901' || $e=='INC' && $f==='01S_902'|| $e=='IUC' && $f==='01S_902') { // 11S_901 01S_902
             $files=file(request('mpu')->getRealPath());
             $data=(array_slice($files, 0));
             $parts =(array_chunk($data, 5000));
