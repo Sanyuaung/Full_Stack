@@ -12,7 +12,11 @@ class CO extends Model
     use HasFactory;
     public $connection="mysql2";
     public $table="CZ_CARD";
-
+    public static function cz()
+    {
+        $cz=DB::connection('mysql2')->select('select MERCHANT_ID, MERCHANT_TRADE_NAME from CZ_MERCHANT');
+        return $cz;
+    }
     public static function data(Request $req)
     {
         $validation=$req->validate([

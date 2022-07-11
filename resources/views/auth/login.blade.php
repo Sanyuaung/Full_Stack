@@ -47,21 +47,19 @@
                                 <input type="password" name="password" id="your_pass" placeholder="Password" />
                             </div>
                             <div class="form-group form-button">
-                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                                <input type="submit" name="signin" id="signin" class="form-submit"
+                                    value="Log in" />
                             </div>
                         </form>
                     </div>
                     <a href="{{ route('register') }}" class="signup-image-link"><span class="iconify"
                             data-icon="line-md:account-add" data-width="30"></span>Create an account</a>
-                    <a href="{{ route('forgetpasswordhome') }}" class="signup-image-links"><span
-                            class="iconify" data-icon="teenyicons:password-outline"
-                            data-width="25"></span>&nbsp;&nbsp;&nbsp;Forget
+                    <a href="{{ route('forgetpasswordhome') }}" class="signup-image-links"><span class="iconify"
+                            data-icon="teenyicons:password-outline" data-width="25"></span>&nbsp;&nbsp;&nbsp;Forget
                         Password</a>
                 </div>
             </div>
         </section>
-
-
     </div>
 
     <!-- JS -->

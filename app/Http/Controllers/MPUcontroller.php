@@ -43,6 +43,7 @@ class MPUcontroller extends Controller
             $count=array_pop($files);
             unset($count);
             $data=(array_slice($files, 1));
+            // dd($d)
             if ($data==[]) {
                 Alert::error('This File is Empty.');
                 return back();
@@ -95,13 +96,13 @@ class MPUcontroller extends Controller
                 foreach ($filePath as $file) {
                     $data=array_map('str_getcsv', file($file));
                     DB::delete('delete from inc01cs');
-                    DB::connection('mysql2')->delete('delete from SYA_POS');
+                    // DB::connection('mysql2')->delete('delete from SYA_POS');
                     foreach ($data as $row) {
                         inc01c::Create([
                                 'Field1'=>$row [0],
                                 'filename'=>$filename,
                             ]);
-                    DB::connection('mysql2')->select("insert into SYA_POS (Field1)VALUES('$row[0]')");
+                    // DB::connection('mysql2')->select("insert into SYA_POS (Field1)VALUES('$row[0]')");
                     };
                 }
                 if ($e=='IUC' && $f==='01C'|| $e=='IUC' && $f==='01X') {

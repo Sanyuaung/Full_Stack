@@ -95,7 +95,7 @@ $data = json_decode(file_get_contents('http://forex.cbm.gov.mm/api/latest'));
                         <a id="a" href="{{ route('pssd01home') }}">PSSD_01</a>
                     </li>
                     <li>
-                        <a id="a" href="{{ route('pssd02home') }}">PSSD_02</a>
+                        <a id="a" href="{{ route('pssd02input') }}">PSSD_02</a>
                     </li>
                     <li>
                         <a id="a" href="{{ route('pssd04home') }}">PSSD_04</a>

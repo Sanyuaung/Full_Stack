@@ -141,6 +141,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/pssd01download/{date}', [CBMController::class, "pssd01download"])->name("pssd01download");
 
     // PSSD_02
+    Route::get('/pssd02input', [CBMController::class, "pssd02input"])->name("pssd02input");
+    Route::post('/fileinsert', [CBMController::class, "fileinsert"])->name("fileinsert");
     Route::get('/pssd02', [CBMController::class, "pssd02home"])->name("pssd02home");
     Route::post('/pssd02print', [CBMController::class, "pssd02print"])->name("pssd02print");
     Route::get('/pssd02download/{date}', [CBMController::class, "pssd02download"])->name("pssd02download");

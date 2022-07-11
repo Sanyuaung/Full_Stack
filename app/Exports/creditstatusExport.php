@@ -25,7 +25,7 @@ class creditstatusExport implements FromCollection, WithHeadings, WithMapping, S
             $cr->CARD_CUST_ID,
             $cr->CARD_EMBOSSED_NAME,
             $cr->CARD_BS_IND,
-            $cr->CRDLMT_CREDIT_LMT,
+            $cr->ACCGRPLMT_CREDIT_LMT,
             $cr->CLOSE_BALANCE,
             $cr->CSTMTACCT_CURR_AGE_CODE,
             $cr->CARD_CARDPLAN_ID,
@@ -36,14 +36,14 @@ class creditstatusExport implements FromCollection, WithHeadings, WithMapping, S
 
     public function collection()
     {
-        return collect(DB::connection('mysql2')->select("select @row:=@row + 1 AS NO,A.CARD_CUST_ID,A.CARD_EMBOSSED_NAME,A.CARD_BS_IND,C.CRDLMT_CREDIT_LMT ,
+        return collect(DB::connection('mysql2')->select("select @row:=@row + 1 AS NO,A.CARD_CUST_ID,A.CARD_EMBOSSED_NAME,A.CARD_BS_IND,C.ACCGRPLMT_CREDIT_LMT ,
         COALESCE(B.CSTMTACCT_ACCT_BAL, 0) AS CLOSE_BALANCE,B.CSTMTACCT_CURR_AGE_CODE,A.CARD_CARDPLAN_ID,
         A.CARD_PLASTIC_CODE,B.CSTMTACCT_YYYYMM
-        FROM CZ_CARD A, CZ_CSTMTACCT B, CZ_CRDLMT C
+        FROM CZ_CARD A, CZ_CSTMTACCT B, CZ_ACCGRPLMT C
         WHERE A.CARD_CRDACCT_NO = B.CSTMTACCT_ACCT_NO
-        AND A.CARD_NO = C.CRDLMT_CARD_NO
+        AND A.CARD_CUST_ID = C.ACCGRPLMT_CUST_ID
         AND B.CSTMTACCT_YYYYMM=$this->date
-        GROUP BY A.CARD_NO ORDER BY NO ASC"));
+        GROUP BY A.CARD_NO"));
     }
 
     public function headings(): array
@@ -52,7 +52,7 @@ class creditstatusExport implements FromCollection, WithHeadings, WithMapping, S
             "CARD_CUST_ID",
             "CARD_EMBOSSED_NAME",
             "CARD_BS_IND",
-            "CRDLMT_CREDIT_LMT",
+            "ACCGRPLMT_CREDIT_LMT",
             "CLOSE_BALANCE",
             "CSTMTACCT_CURR_AGE_CODE",
             "CARD_CARDPLAN_ID",

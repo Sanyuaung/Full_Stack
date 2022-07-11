@@ -19,9 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('department');
             $table->boolean('status')->default(false);
-            // $table->boolean('isApproved')->default(false);
-            // $table->boolean('Card')->default(false);
-            // $table->boolean('Settlement')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

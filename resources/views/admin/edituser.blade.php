@@ -16,8 +16,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <td><input readonly type="text" id="materialRegisterFormFirstName" class="text-center form-control"
-                                name="username" placeholder="User Name" value="{{ $edituser->name }}"></td>
+                        <td><input readonly type="text" id="materialRegisterFormFirstName"
+                                class="text-center form-control" name="username" placeholder="User Name"
+                                value="{{ $edituser->name }}"></td>
                         <td><input readonly type="email" id="materialRegisterFormEmail" class="text-center form-control"
                                 name="email" placeholder="E-mail" value="{{ $edituser->email }}"></td>
                         <td><select name="department" class="text-center">
@@ -30,10 +31,11 @@
                                     Settlement Dept;</option>
                             </select></td>
                         <td><select name="status">
-                                <option value="1" {{ $edituser->status == '1' ? 'selected' : '' }}>Approved</option>
                                 <option value="0" {{ $edituser->status == '0' ? 'selected' : '' }}>Pending</option>
+                                <option value="1" {{ $edituser->status == '1' ? 'selected' : '' }}>Approved</option>
+                                <option value="2" {{ $edituser->status == '2' ? 'selected' : '' }}>Close</option>
                             </select></td>
-                        <td><button title="Update"  class="btn btn-success text-white" type="submit">Update</button></td>
+                        <td><button title="Update" class="btn btn-success text-white" type="submit">Update</button></td>
                         </tr>
                     </tbody>
                 </table>

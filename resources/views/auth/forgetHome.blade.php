@@ -48,12 +48,6 @@
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
                                 <input type="email" name="email" id="email" placeholder="Your Email" />
                             </div>
-                            {{-- <input onclick="callAjax();" type="submit" name="signup" id="signup" class="form-submit"
-                                value="Continue" />
-                            <div id="loaderIcon" class="text-primary spinner-border spinner-border-sm"
-                                style="display:none" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div> --}}
                             <div class="form-group form-button">
                                 <input type="submit" name="signup" id="signup" class="form-submit"
                                     value="Continue" />

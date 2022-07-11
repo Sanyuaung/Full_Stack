@@ -15,7 +15,7 @@
                     <th scope="col">CARD_CUST_ID</th>
                     <th scope="col">CARD_EMBOSSED_NAME</th>
                     <th scope="col">CARD_BS_IND</th>
-                    <th scope="col">CRDLMT_CREDIT_LMT</th>
+                    <th scope="col">ACCGRPLMT_CREDIT_LMT</th>
                     <th scope="col">CLOSE_BALANCE</th>
                     <th scope="col">CSTMTACCT_CURR_AGE_CODE</th>
                     <th scope="col">CARD_CARDPLAN_ID</th>
@@ -30,7 +30,7 @@
                         <td>{{ $cr->CARD_CUST_ID }}</td>
                         <td>{{ $cr->CARD_EMBOSSED_NAME }}</td>
                         <td>{{ $cr->CARD_BS_IND }}</td>
-                        <td>{{ $cr->CRDLMT_CREDIT_LMT }}</td>
+                        <td>{{ $cr->ACCGRPLMT_CREDIT_LMT }}</td>
                         <td>{{ $cr->CLOSE_BALANCE }}</td>
                         <td>{{ $cr->CSTMTACCT_CURR_AGE_CODE }}</td>
                         <td>{{ $cr->CARD_CARDPLAN_ID }}</td>
