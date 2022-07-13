@@ -112,7 +112,7 @@ class AuthController extends Controller
             $update->password = Hash::make($password);
             $update->update();
             // Alert::success('Successfully Chaged!', 'Please Sign in');
-            Alert::success('Successfully Chaged!');
+            Alert::success('Successfully Changed!');
             return redirect()->route('login');
         } else {
             return back()->withErrors($validation);

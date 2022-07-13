@@ -30,8 +30,8 @@
                     <div class="signup-form">
                         <h2 class="new">Create New Password</h2>
                         @foreach ($old as $old)
-                            <form method="POST" action="{{ route('updatePassword', $old->id) }}"
-                                class="register-form" id="register-form">
+                            <form method="POST" action="{{ route('updatePassword', $old->id) }}" class="register-form"
+                                id="register-form">
                         @endforeach
                         @csrf
                         @error('username')
@@ -53,7 +53,7 @@
                         @enderror
                         <div class="form-group">
                             <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" name="password" id="pass" placeholder="New Password" />
+                            <input type="password" name="password" id="pass" placeholder="Password" />
                         </div>
                         @error('password_confirmation')
                             <p class="text-danger">{{ $message }}</p>
@@ -61,7 +61,7 @@
                         <div class="form-group">
                             <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
                             <input type="password" name="password_confirmation" id="re_pass"
-                                placeholder="Repeat your new password" />
+                                placeholder="Repeat your password" />
                         </div>
                         <div class="form-group form-button">
                             <input type="submit" name="signup" id="sidgnup" class="form-submit" value="Update" />

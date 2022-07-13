@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Exports\AtmExport;
 use App\Exports\cardlistExport;
 use App\Exports\CCAnnualFeeExport;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Exports\COExport;
 use App\Exports\creditstatusExport;
+use App\Exports\MerchantExport;
 use App\Exports\OnusExport;
 use App\Models\Atm;
 use App\Models\cardlist;
@@ -176,5 +178,9 @@ class onecardController extends Controller
     {
         return Excel::download(new creditstatusExport($date), "Credit Card Stauts ($date).xlsx");
 
+    }
+    public function export()
+    {
+        return Excel::download(new MerchantExport, "Merchant Lists.xlsx");
     }
 }

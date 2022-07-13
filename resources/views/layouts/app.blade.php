@@ -59,13 +59,17 @@ $data = json_decode(file_get_contents('http://forex.cbm.gov.mm/api/latest'));
                 @endif
                 @if (auth()->user()->department == 'Card' || auth()->user()->department == 'Admin')
                     <li>
+                        <a id="a" href="{{ route('import') }}"><span class="iconify"
+                                data-icon="mdi:file-import" style="color: #ff0000;" data-width="25"></span>&nbsp;Import
+                            Merchant File</a>
+                    </li>
+                    <li>
                         <a id="a" href="{{ route('MPUHome') }}">MPU / UPI / JCB New Switch</a>
                     </li>
                     <li>
                         <a id="a" href="{{ route('ccy') }}"><span class="iconify"
-                                data-icon="flat-color-icons:currency-exchange" data-width="25"></span>&nbsp;
-                            Daily
-                            Currency Rate</a>
+                                data-icon="flat-color-icons:currency-exchange" data-width="25"></span>
+                            Daily Currency Rate</a>
                     </li>
                     <li>
                         <a id="a" href="{{ route('atmhome') }}"><span class="iconify"

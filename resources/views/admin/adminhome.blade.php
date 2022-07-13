@@ -22,17 +22,7 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->department }}</td>
-                        <td><?php
-                        if ($user->status == '0') {
-                            echo 'Pending';
-                        } elseif ($user->status == '1') {
-                            echo 'Approve';
-                        } elseif ($user->status == '2') {
-                            echo 'Close';
-                        } ?>
-                        </td>
-
-                        {{-- <td>{{ $user->status == '0' ? 'Pending' : 'Approved' }}</td> --}}
+                        <td>{{ $user->status == '0' ? 'Pending' : 'Approved' }}</td>
                         <td><a title="Update" class="btn btn-success text-white"
                                 href="{{ route('edituser', $user->id) }}">Update</a>
                         <td><a title="Delete" class="btn btn-danger text-white delete-confirm"

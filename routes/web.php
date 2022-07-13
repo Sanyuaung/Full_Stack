@@ -15,6 +15,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CBMController;
+use App\Http\Controllers\ExcelImportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JCBcontroller;
 use App\Http\Controllers\MPUcontroller;
@@ -156,8 +157,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/AnnualFee', [onecardController::class, "annualfeehome"])->name("annualfeehome");
     Route::post('/AnnualFeePrint', [onecardController::class, "AnnualFeePrint"])->name("AnnualFeePrint");
     Route::get('/AnnualFeedownload/{month1}/{date2}/{date1}', [onecardController::class, "AnnualFeedownload"])->name("AnnualFeedownload");
-
-
+    
+    Route::get('/export', [onecardController::class, "export"])->name("export");
+    
+    //Merchant
+    Route::get('/import', [ExcelImportController::class, "import"])->name("import");
+    Route::get('/delete', [ExcelImportController::class, "delete"])->name("delete");
+    Route::post('/import', [ExcelImportController::class, "importfile"])->name("importfile");
+    
 
     // User Control
     Route::get('/usercontol', [AdminController::class, "home"])->name("userhome");
