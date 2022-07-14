@@ -18,9 +18,10 @@ class COExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoS
      * @return \Illuminate\Support\Collection
      */
     protected $date;
-    function __construct($date)
+    function __construct($date,$branch)
     {
         $this->date = $date;
+        $this->branch = $branch;
     }
     public function columnFormats(): array
     {
@@ -56,14 +57,16 @@ class COExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoS
     public function collection()
     {
         return collect(DB::connection('mysql2')->select("select $this->date as date,@row:=@row + 1 AS NO, F.CUST_ID,F.CUST_NAME,C.CONTACT_NAME, 
-        C.CONTACT_BIRTH_DATE,C.CONTACT_IC, C.CONTACT_MOBILE,A.CARD_CARDPLAN_ID,
+        C.CONTACT_BIRTH_DATE, C.CONTACT_IC,C.CONTACT_MOBILE,A.CARD_CARDPLAN_ID,
         C.CONTACT_EMPLOYER_NAME, C.CONTACT_STAFF, A.CARD_BRANCH_ID AS CUST_BRANCH_ID,
         B.CSTMTACCT_ACCT_NO as ACCOUNT_NO,B.CSTMTACCT_YYYYMM AS STMT_MONTH, B.CSTMTACCT_CURRENCY AS CURRENCY,
         COALESCE(B.CSTMTACCT_ACCT_OPEN_BAL, 0) AS OPEN_BALANCE, E.ACCGRPLMT_CREDIT_LMT,
         COALESCE(B.CSTMTACCT_ACCT_BAL, 0) AS CLOSE_BALANCE,B.CSTMTACCT_CURR_AGE_CODE AS CURR_AGE_CODE, 
         CONCAT(CUST_STATUS_ID, '-', STS_NAME) AS STATUS
         FROM  CZ_CARD A
-        INNER JOIN CZ_CUSTOMER F ON A.CARD_CUST_ID = F.CUST_ID
+        INNER JOIN CZ_CUSTOMER F ON A.CARD_CUST_ID = F.CUST_ID AND 
+        case when '$this->branch' like 'ALL' then CARD_BRANCH_ID like '%'
+        else CARD_BRANCH_ID like '$this->branch' end
         INNER JOIN CZ_CSTMTACCT B ON B.CSTMTACCT_ACCT_NO =A.CARD_CRDACCT_NO 
         AND B.CSTMTACCT_CUST_ID=F.CUST_ID AND B.CSTMTACCT_CRDR_IND='C' AND B.CSTMTACCT_YYYYMM='$this->date'
         INNER JOIN CZ_ACCGRPLMT E ON E.ACCGRPLMT_CUST_ID=A.CARD_CUST_ID 

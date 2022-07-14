@@ -17,6 +17,7 @@ class CreateMerchantsTable extends Migration
             $table->id();
             $table->string('MERCHANT_ID', 500);
             $table->string('MERCHANT_TRADE_NAME', 500);
+            $table->collation = 'utf8mb4_general_ci';
             $table->timestamps();
         });
     }

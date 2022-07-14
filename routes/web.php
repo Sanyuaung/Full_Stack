@@ -117,7 +117,7 @@ Route::middleware('auth')->group(function () {
     // Onecard Customer Outstanding
     Route::get('/outstanding', [onecardController::class, "cohome"])->name("cohome");
     Route::post('/outstandingprint', [onecardController::class, "coprint"])->name("coprint");
-    Route::get('/codownload/{date}', [onecardController::class, "codownload"])->name("codownload");
+    Route::get('/codownload/{date}/{branch}', [onecardController::class, "codownload"])->name("codownload");
 
     // MOB_Card_List
     Route::get('/cardlist', [onecardController::class, "cardhome"])->name("cardhome");

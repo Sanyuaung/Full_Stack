@@ -57,19 +57,21 @@ class onecardController extends Controller
     {
         $validation=$req->validate([
             "month"=>"required",
+            "branch"=>"required",
         ]);
+        $branch=$req->branch;
         $year=substr($req->month, 0, 4);
         $month=substr($req->month, 5, 2);
         $date=$year.$month;
         $data=new CO();
         $co=$data->data($req);
         // dd($co);
-        return view('NewSwitch/Reports/Outstanding/Coshow', ['co'=>$co,'date'=>$date]);
+        return view('NewSwitch/Reports/Outstanding/Coshow', ['co'=>$co,'date'=>$date,'branch'=>$branch]);
     }
 
-    public function codownload($date)
+    public function codownload($date,$branch)
     {
-        return Excel::download(new COExport($date), "Customer Outstanding list for $date.xlsx");
+        return Excel::download(new COExport($date,$branch), "Customer Outstanding list for $date ($branch Branch).xlsx");
 
     }
 

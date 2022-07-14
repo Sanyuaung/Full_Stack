@@ -21,11 +21,12 @@ class CO extends Model
     {
         $validation=$req->validate([
             "month"=>"required",
+            "branch"=>"required",
         ]);
         $year=substr($req->month, 0, 4);
         $month=substr($req->month, 5, 2);
         $date=$year.$month;
-        // dd($date);
+        // dd($req->branch);
         if ($validation) {
             DB::connection('mysql2')->statement(DB::raw('set @row:=0'));
             $co = DB::connection('mysql2')->select("select $date as date,@row:=@row + 1 AS NO, F.CUST_ID,F.CUST_NAME,C.CONTACT_NAME, 
@@ -36,7 +37,9 @@ class CO extends Model
             COALESCE(B.CSTMTACCT_ACCT_BAL, 0) AS CLOSE_BALANCE,B.CSTMTACCT_CURR_AGE_CODE AS CURR_AGE_CODE, 
             CONCAT(CUST_STATUS_ID, '-', STS_NAME) AS STATUS
             FROM  CZ_CARD A
-            INNER JOIN CZ_CUSTOMER F ON A.CARD_CUST_ID = F.CUST_ID
+            INNER JOIN CZ_CUSTOMER F ON A.CARD_CUST_ID = F.CUST_ID AND 
+            case when '$req->branch' like 'ALL' then CARD_BRANCH_ID like '%'
+            else CARD_BRANCH_ID like '$req->branch' end
             INNER JOIN CZ_CSTMTACCT B ON B.CSTMTACCT_ACCT_NO =A.CARD_CRDACCT_NO 
             AND B.CSTMTACCT_CUST_ID=F.CUST_ID AND B.CSTMTACCT_CRDR_IND='C' AND B.CSTMTACCT_YYYYMM='$date'
             INNER JOIN CZ_ACCGRPLMT E ON E.ACCGRPLMT_CUST_ID=A.CARD_CUST_ID 
