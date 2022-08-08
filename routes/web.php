@@ -52,7 +52,7 @@ Route::get('/logout', [AuthController::class, "logout"])->name("logout");
 // Auth Middleware
 Route::middleware('auth')->group(function () {
     Route::get('/cardsettlement', [HomeController::class, "home"])->name("home");
-
+    // Route::get('/', [HomeController::class, "home"])->name("home");
     Route::get('/JCB', [HomeController::class, "JCBHome"])->name("JCBHome");
     Route::get('/MPU', [HomeController::class, "MPUHome"])->name("MPUHome");
     Route::get('/UPI', [UPIController::class, "UPIHome"])->name("UPIHome");
@@ -123,19 +123,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/cardlist', [onecardController::class, "cardhome"])->name("cardhome");
     Route::post('/cardlistprint', [onecardController::class, "cardprint"])->name("cardprint");
     Route::get('/carddownload/{startdate}/{enddate}/{brand}', [onecardController::class, "cardlistdownload"])->name("cardlistdownload");
-    
+
     // MOB_Credit_Card_status
     Route::get('/creditlist', [onecardController::class, "credithome"])->name("credithome");
     Route::post('/creditlistprint', [onecardController::class, "creditlistprint"])->name("creditlistprint");
     Route::get('/creditdownload/{date}', [onecardController::class, "creditdownload"])->name("creditdownload");
-  
-    
+
+
     // Acquiring ONUS
     Route::get('/onus', [onecardController::class, "onushome"])->name("onushome");
     Route::post('/onusprint', [onecardController::class, "onusprint"])->name("onusprint");
     Route::get('/onusdownload/{startdate}/{enddate}', [onecardController::class, "onusdownload"])->name("onusdownload");
-   
-    
+
+
     // PSSD_01
     Route::get('/pssd01', [CBMController::class, "pssd01home"])->name("pssd01home");
     Route::post('/pssd01print', [CBMController::class, "pssd01print"])->name("pssd01print");
@@ -157,14 +157,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/AnnualFee', [onecardController::class, "annualfeehome"])->name("annualfeehome");
     Route::post('/AnnualFeePrint', [onecardController::class, "AnnualFeePrint"])->name("AnnualFeePrint");
     Route::get('/AnnualFeedownload/{month1}/{date2}/{date1}', [onecardController::class, "AnnualFeedownload"])->name("AnnualFeedownload");
-    
+
     Route::get('/export', [onecardController::class, "export"])->name("export");
-    
+
     //Merchant
     Route::get('/import', [ExcelImportController::class, "import"])->name("import");
     Route::get('/delete', [ExcelImportController::class, "delete"])->name("delete");
     Route::post('/import', [ExcelImportController::class, "importfile"])->name("importfile");
-    
+
 
     // User Control
     Route::get('/usercontol', [AdminController::class, "home"])->name("userhome");

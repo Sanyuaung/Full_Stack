@@ -40,6 +40,7 @@
                     <th scope="col">Type of Transaction</th>
                     <th scope="col">Card Type</th>
                     <th scope="col">Authorization Currency</th>
+                    <th scope="col">Issuer Country</th>
                     <th scope="col">Update</th>
                 </tr>
             </thead>
@@ -58,6 +59,7 @@
                         <td>{{ $tranx->typeOfTrans }}</td>
                         <td>{{ $tranx->cardType }}</td>
                         <td>{{ $tranx->currency }}</td>
+                        <td>{{ $tranx->country }}</td>
                         <td><a class="btn btn-success" href="{{ route('visaedit', $tranx->id) }}">Update</a>
                     </tr>
                 @endforeach

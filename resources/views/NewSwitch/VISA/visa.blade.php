@@ -2,7 +2,7 @@
 @section('content')
     @include('sweetalert::alert')
     <link href="/css/visa.css" rel="stylesheet">
-    <div class="mt-5 text-center">
+    <div class="mt-3 text-center">
         <a href="{{ route('showall') }}" type="sumbit" class="btn btn-warning btn-rounded float-end"><span id="span">Show
                 All</span></a>
         <h2><span class="iconify" data-icon="logos:visa" data-width="80">
@@ -104,50 +104,68 @@
         </div>
         <div class="row mt-3">
             <div class="col">
-                <span for="cardType">Select Card Type : </span>
-                <select name="cardType" id="terminal">
-                    <option selected></option>
-                    <option value="Debit">Debit</option>
-                    <option value="Credit">Credit</option>
-                    <option value="Prepaid">Prepaid</option>
-                </select>
+                <label for="browser">Card Type : </label>
+                <input list="cards" name="cardType" id="browser">
+                <datalist id="cards">
+                    <option value="DEBIT">
+                    <option value="CREDIT">
+                    <option value="PREPAID">
+                </datalist>
                 @error('cardType')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
             <div class="col">
-                <label for="terminal">Select Currency : </label>
-                <select name="currency" id="terminal">
-                    <option selected></option>
-                    <option value="mmk">MMK</option>
-                    <option value="usd">USD</option>
-                </select>
+                <label for="browser">Currency : </label>
+                <input list="currencys" name="currency" id="browser">
+                <datalist id="currencys">
+                    <option value="MMK">
+                    <option value="USD">
+                </datalist>
                 @error('currency')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
             <div class="col">
-                <label for="terminal">Select Type of Transaction : </label>
-                <select name="typeOfTrans" id="terminal">
-                    <option selected></option>
-                    <option value="visapos">VISA_POS</option>
-                    <option value="visaatm">VISA_ATM</option>
-                    <option value="masterpos">Master_POS</option>
-                    <option value="masteratm">Master_ATM</option>
-                    <option value="upipos">UPI_POS</option>
-                    <option value="upiatm">UPI_ATM</option>
-                    <option value="jcbpos">JCB_POS</option>
-                    <option value="jcbatm">JCB_ATM</option>
-                </select>
-                @error('typeOfTrans')
+                <label for="browser">Issuer Country : </label>
+                <input list="countries" name="country" id="browser">
+                <datalist id="countries">
+                    <option value="DOMESTIC">
+                    <option value="INTERNATIONAL">
+                </datalist>
+                @error('country')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
         </div>
+        <div class="row mt-4">
+            <div class="col">
+                <label for="browser">Type of Transaction : </label>
+                <input list="trans" name="typeOfTrans" id="browser">
+                <datalist id="trans">
+                    <option value="VISAPOS">
+                    <option value="VISAATM">
+                    <option value="MASTERPOS">
+                    <option value="MASTERATM">
+                    <option value="UPIPOS">
+                    <option value="UPIATM">
+                    <option value="JCBPOS">
+                    <option value="JCBATM">
+                </datalist>
+                @error('typeOfTrans')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+        </div>
         <div>
             <div class="text-center">
-                <button type="submit" class="btn btn-warning mt-5 "><i
-                        class="mt-1 far fa-save fa-2x"></i><span id="span">&nbsp;&nbsp;Save Now</span></button>
+                <button type="submit" class="btn btn-warning mt-5"><i class="mt-1 far fa-save fa-2x"></i><span
+                        id="span">&nbsp;&nbsp;Save Now</span></button>
             </div>
+        </div>
     </form>
 @endsection

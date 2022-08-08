@@ -28,7 +28,7 @@ class ifc99c extends Model
         substring(Field1,288,3) as settlement_curr,substring(Field1,291,8) as settlement_convert_rate,
         format(concat(substring(Field1,299,10),".",substring(Field1,309,2)),2) as Cardholder_billamt,
         substring(Field1,311,3) as Cardholder_bill_curr,substring(Field1,314,8) as Cardholder_billing_convert_rate,
-        substring(Field1,322,12) as Net_Fee_Amt,substring(Field1,334,3) as IRF_Curr,
+        concat (substring(Field1,329,3),".",substring(Field1,332,2) ) as Net_Fee_Amt,substring(Field1,334,3) as IRF_Curr,
         substring(Field1,337,8) as Exrate_RF_bill_to_settlement_curr,substring(Field1,345,3) as Abbrev_Foreign_institute,
         substring(Field1,348,1) as mainland_china_txn_ind,format(concat(substring(Field1,349,10),".",substring(Field1,359,2)),2) as Txn_fee,
         substring(Field1,361,29) as QRC_voucher_no,substring(Field1,390,7) as Reserved1,substring(Field1,397,16) as Applied_cryptogram,

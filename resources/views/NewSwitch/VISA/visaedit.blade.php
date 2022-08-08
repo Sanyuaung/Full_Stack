@@ -2,7 +2,7 @@
 @section('content')
     @include('sweetalert::alert')
     <link href="/css/visa.css" rel="stylesheet">
-    <div class="mt-5 text-center">
+    <div class="mt-3 text-center">
         <a class="float-start mb-3" title="Back" href="{{ route('showall') }}" role="button"><span class="iconify"
                 data-icon="akar-icons:arrow-back-thick" style="color: #0d38f7;" data-width="25"></span></a>
         <h2><span class="iconify" data-icon="logos:visa" data-width="80">
@@ -113,7 +113,7 @@
         </div>
         <div class="row mt-3">
             <div class="col">
-                <span for="cardType">Select Card Type : </span>
+                <span for="cardType">Card Type : </span>
                 <select name="cardType" id="terminal">
                     <option value="Debit">{{ $edittran->cardType }}</option>
                 </select>
@@ -122,7 +122,7 @@
                 @enderror
             </div>
             <div class="col">
-                <label for="terminal">Select Currency : </label>
+                <label for="terminal">Currency : </label>
                 <select name="currency" id="terminal">
                     <option selected>{{ $edittran->currency }}</option>
                 </select>
@@ -131,7 +131,18 @@
                 @enderror
             </div>
             <div class="col">
-                <label for="terminal">Select Type of Transaction : </label>
+                <label for="terminal">Issuer Country : </label>
+                <select name="country" id="terminal">
+                    <option selected>{{ $edittran->country }}</option>
+                </select>
+                @error('country')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+                <label for="terminal">Type of Transaction : </label>
                 <select name="typeOfTrans" id="terminal">
                     <option selected>{{ $edittran->typeOfTrans }}</option>
                 </select>
@@ -139,11 +150,16 @@
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
         </div>
         <div>
             <div class="text-center">
                 <button type="submit" class="btn btn-warning mt-5 "><i class="mt-1 far fa-save fa-2x"></i><span
                         id="span">&nbsp;&nbsp;Update Now</span></button>
             </div>
+        </div>
     </form>
 @endsection

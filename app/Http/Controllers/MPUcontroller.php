@@ -180,13 +180,13 @@ class MPUcontroller extends Controller
                 foreach ($filePath as $file) {
                     $data=array_map('str_getcsv', file($file));
                     DB::delete('delete from acoms');
-                    DB::connection('mysql2')->delete('delete from SYA_ATM');
+                    // DB::connection('mysql2')->delete('delete from SYA_ATM');
                     foreach ($data as $row) {
                         acom::Create([
                                     'Field1'=>$row [0],
                                     'filename'=>$filename,
                                 ]);
-                    DB::connection('mysql2')->select("insert into SYA_ATM (Field1)VALUES('$row[0]')");
+                    // DB::connection('mysql2')->select("insert into SYA_ATM (Field1)VALUES('$row[0]')");
                     };
                 }
                 $data=new acom();

@@ -40,18 +40,22 @@ $data = json_decode(file_get_contents('http://forex.cbm.gov.mm/api/latest'));
         <nav>
             <a href="{{ route('home') }}"><img src="{{ asset('images/logo.png') }} "></a>
             <ul class="navScroll">
-                @if (auth()->user()->department == 'Settlement' || auth()->user()->department == 'Admin')
+                @if (auth()->user()->department == 'Settlement' ||
+                    auth()->user()->department == 'Admin' ||
+                    auth()->user()->department == 'Card')
                     <li>
                         <a id="a" href="{{ route('JCBHome') }}"><span class="iconify" data-icon="logos:jcb"
                                 data-width="20"></span>&nbsp; JCB Post Files News</a>
                     </li>
                     <li>
-                        <a id="a" href="{{ route('UPIHome') }}"><span class="iconify"
-                                data-icon="logos:unionpay" data-width="26"></span>&nbsp; Issuing UPI
+                        <a id="a" href="{{ route('UPIHome') }}"><span class="iconify" data-icon="logos:unionpay"
+                                data-width="26"></span>&nbsp; Issuing UPI
                             Settlement</a>
                     </li>
                 @endif
-                @if (auth()->user()->department == 'Settlement' || auth()->user()->department == 'Admin' || auth()->user()->department == 'Card')
+                @if (auth()->user()->department == 'Settlement' ||
+                    auth()->user()->department == 'Admin' ||
+                    auth()->user()->department == 'Card')
                     <li>
                         <a id="a" href="{{ route('visa') }}"><span class="iconify" data-icon="logos:visa"
                                 data-width="25"></span>&nbsp; Visa Transactions Add</a>
@@ -59,8 +63,8 @@ $data = json_decode(file_get_contents('http://forex.cbm.gov.mm/api/latest'));
                 @endif
                 @if (auth()->user()->department == 'Card' || auth()->user()->department == 'Admin')
                     <li>
-                        <a id="a" href="{{ route('import') }}"><span class="iconify"
-                                data-icon="mdi:file-import" style="color: #ff0000;" data-width="25"></span>&nbsp;Import
+                        <a id="a" href="{{ route('import') }}"><span class="iconify" data-icon="mdi:file-import"
+                                style="color: #ff0000;" data-width="25"></span>&nbsp;Import
                             Merchant File</a>
                     </li>
                     <li>

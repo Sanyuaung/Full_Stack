@@ -10,19 +10,19 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class VisaExport implements  FromCollection,WithHeadings,WithMapping,ShouldAutoSize
+class VisaExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
 
-    protected $startdate,$enddate;
-    function __construct($startdate,$enddate)
+    protected $startdate, $enddate;
+    function __construct($startdate, $enddate)
     {
-        $this->startdate=$startdate;
-        $this->enddate=$enddate;
+        $this->startdate = $startdate;
+        $this->enddate = $enddate;
     }
-    
+
     public function map($visa): array
     {
         return [
@@ -37,30 +37,33 @@ class VisaExport implements  FromCollection,WithHeadings,WithMapping,ShouldAutoS
             $visa->commAmt,
             $visa->typeOfTrans,
             $visa->cardType,
-            $visa->currency
+            $visa->currency,
+            $visa->country
         ];
     }
-    
+
     public function collection()
     {
         return collect(DB::connection('mysql2')
-        ->select("select * from syavisatrans where settleDate between $this->startdate and $this->enddate"));
+            ->select("select * from syavisatrans where settleDate between $this->startdate and $this->enddate"));
     }
 
-    public function headings():array
+    public function headings(): array
     {
-        return [	
-        "SETTLEDATE",
-        "NOTRANS",
-        "USDAMT",
-        "MMKAMT",
-        "EXRATE",
-        "NETAMT",
-        "SETTAMT_NOSTRO_USD",
-        "FUNDINGDATE",
-        "COMMAMT",
-        "TYPEOFTRANS",
-        "CARDTYPE",
-        "CURRENCY"];
+        return [
+            "SETTLEMENT DATE",
+            "NUMBER OF TRANSACTIONS",
+            "USD AMOUNT",
+            "MMK AMOUNT",
+            "EXCHANGE RATE",
+            "NET SETTLEMENT AMOUNT",
+            "SETTLEMENT AMOUNT (USD) AT NOSTRO",
+            "FUNDING DATE",
+            "COMMISSIONS AMOUNT",
+            "TYPE OF TRANSACTION",
+            "CARD TYPE",
+            "AUTHORIZATION CURRENCY",
+            "ISSUER COUNTRY"
+        ];
     }
 }

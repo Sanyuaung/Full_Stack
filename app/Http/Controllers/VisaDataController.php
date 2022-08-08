@@ -28,7 +28,8 @@ class VisaDataController extends Controller
             'commAmt'=>"required",
             'typeOfTrans'=>"required",
             'cardType'=>"required",
-            'currency'=>"required"
+            'currency'=>"required",
+            'country'=>"required"
         ]);
         $Year=substr($req->settledate, 0, 4);
         $Month=substr($req->settledate, 5, 2);
@@ -50,10 +51,11 @@ class VisaDataController extends Controller
             $tranx->netAmt=$req->Net;
             $tranx->settAmt_Nostro_USD=!empty($req->settAmt_Nostro_USD) ? $req->settAmt_Nostro_USD : '';
             $tranx->fundingDate=!empty($fundingDate) ? $fundingDate : '';
-            $tranx->typeOfTrans=strtoupper($req->typeOfTrans);
+            $tranx->typeOfTrans=$req->typeOfTrans;
             $tranx->commAmt=$req->commAmt;
             $tranx->cardType=$req->cardType;
-            $tranx->currency=strtoupper($req->currency);
+            $tranx->currency=$req->currency;
+            $tranx->country=$req->country;
             $tranx->save();
             Alert::success('Sucessfully added');
             return back();
@@ -90,6 +92,7 @@ class VisaDataController extends Controller
             'commAmt'=>"required",
             'cardType'=>"required",
             'currency'=>"required",
+            'country'=>"required",
             'typeOfTrans'=>"required",
         ]);
         // dd($validation);
@@ -114,8 +117,9 @@ class VisaDataController extends Controller
             $vidaupdate->fundingDate=!empty($validation["fundingDate"]) ? $validation["fundingDate"] : '';
             $vidaupdate->commAmt=$validation["commAmt"];
             $vidaupdate->cardType=$validation["cardType"];
-            $vidaupdate->currency=strtoupper($validation["currency"]);
-            $vidaupdate->typeOfTrans=strtoupper($validation["typeOfTrans"]);
+            $vidaupdate->currency=$validation["currency"];
+            $vidaupdate->typeOfTrans=$validation["typeOfTrans"];
+            $vidaupdate->country=$validation["country"];
             $vidaupdate->update();
             Alert::success('Updated','updated successfully');
             return redirect()->route('showall');

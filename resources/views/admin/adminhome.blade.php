@@ -9,7 +9,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">User Name</th>
                     <th scope="col">E-mail</th>
-                    <th scope="col">Department</th>
+                    <th scope="col">Role</th>
                     <th scope="col">Status</th>
                     <th scope="col">Update</th>
                     <th scope="col">Delete</th>
@@ -22,7 +22,16 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->department }}</td>
-                        <td>{{ $user->status == '0' ? 'Pending' : 'Approved' }}</td>
+                        {{-- <td>{{ $user->status == '0' ? 'Pending' : 'Approved' }}</td> --}}
+                        <td><?php
+                        if ($user->status == '0') {
+                            echo 'Pending';
+                        } elseif ($user->status == '1') {
+                            echo 'Approved';
+                        } elseif ($user->status == '2') {
+                            echo 'Close';
+                        }
+                        ?></td>
                         <td><a title="Update" class="btn btn-success text-white"
                                 href="{{ route('edituser', $user->id) }}">Update</a>
                         <td><a title="Delete" class="btn btn-danger text-white delete-confirm"
