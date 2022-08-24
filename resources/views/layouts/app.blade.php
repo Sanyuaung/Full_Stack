@@ -97,7 +97,7 @@ $data = json_decode(file_get_contents('http://forex.cbm.gov.mm/api/latest'));
                                 data-width="15"></span>&nbsp; Acquiring ONUS </a>
                     </li>
                     <li>
-                        <a id="a" href="{{ route('annualfeehome') }}">Credit_Card AnnualFee</a>
+                        <a id="a" href="{{ route('AnnualFeeListingHome') }}">Annual Fee Listing</a>
                     </li>
                     <li>
                         <a id="a" href="{{ route('pssd01home') }}">PSSD_01</a>

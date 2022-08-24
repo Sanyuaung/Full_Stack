@@ -153,10 +153,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/pssd04', [CBMController::class, "pssd04home"])->name("pssd04home");
     Route::post('/pssd04print', [CBMController::class, "pssd04print"])->name("pssd04print");
     Route::get('/pssd04download/{date}', [CBMController::class, "pssd04download"])->name("pssd04download");
-
-    Route::get('/AnnualFee', [onecardController::class, "annualfeehome"])->name("annualfeehome");
-    Route::post('/AnnualFeePrint', [onecardController::class, "AnnualFeePrint"])->name("AnnualFeePrint");
-    Route::get('/AnnualFeedownload/{month1}/{date2}/{date1}', [onecardController::class, "AnnualFeedownload"])->name("AnnualFeedownload");
+    // Credit Annual Fee Listing
+    Route::get('/AnnualFeeListingHome', [onecardController::class, "AnnualFeeListingHome"])->name("AnnualFeeListingHome");
+    Route::post('/AnnualFeeListingPrint', [onecardController::class, "AnnualFeeListingPrint"])->name("AnnualFeeListingPrint");
+    Route::get('/AnnualFeeListingDownload/{month}/{card}', [onecardController::class, "AnnualFeeListingDownload"])->name("AnnualFeeListingDownload");
 
     Route::get('/export', [onecardController::class, "export"])->name("export");
 

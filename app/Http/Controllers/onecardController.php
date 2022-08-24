@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\AtmExport;
 use App\Exports\cardlistExport;
-use App\Exports\CCAnnualFeeExport;
+use App\Exports\AnnualFeeListingExport;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Exports\COExport;
 use App\Exports\creditstatusExport;
@@ -12,7 +12,7 @@ use App\Exports\MerchantExport;
 use App\Exports\OnusExport;
 use App\Models\Atm;
 use App\Models\cardlist;
-use App\Models\CCAnnualFee;
+use App\Models\AnnualFeeListing;
 use App\Models\CO;
 use App\Models\creditstatus;
 use App\Models\onus;
@@ -22,6 +22,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class onecardController extends Controller
 {
+
     public function atmhome()
     {
         return view('NewSwitch/Reports/ATM/atmhome');
@@ -29,21 +30,21 @@ class onecardController extends Controller
     public function atmprint(Request $req)
     {
         // dd($req->start);
-        $validation=$req->validate([
-            "start"=>"required",
-            "end"=>"required",
+        $validation = $req->validate([
+            "start" => "required",
+            "end" => "required",
         ]);
-        $startdate=substr($req->start, 0, 4).substr($req->start, 5, 2).substr($req->start, 8, 2);
-        $enddate=substr($req->end, 0, 4).substr($req->end, 5, 2).substr($req->end, 8, 2);
-        $data=new Atm();
-        $atm=$data->data($req);
-        return view('NewSwitch/Reports/ATM/atmshow', ['atm'=>$atm,'startdate'=>$startdate,'enddate'=>$enddate]);
+        $startdate = substr($req->start, 0, 4) . substr($req->start, 5, 2) . substr($req->start, 8, 2);
+        $enddate = substr($req->end, 0, 4) . substr($req->end, 5, 2) . substr($req->end, 8, 2);
+        $data = new Atm();
+        $atm = $data->data($req);
+        return view('NewSwitch/Reports/ATM/atmshow', ['atm' => $atm, 'startdate' => $startdate, 'enddate' => $enddate]);
     }
     public function atmdownload($startdate, $enddate)
     {
-        $count1=substr($startdate, 6, 2);
-        $count2=substr($enddate, 6, 2);
-        $count=(($count2-$count1)+1)*24;
+        $count1 = substr($startdate, 6, 2);
+        $count2 = substr($enddate, 6, 2);
+        $count = (($count2 - $count1) + 1) * 24;
         // dd($count);
         return Excel::download(new AtmExport($startdate, $enddate, $count), "ATM Performance From $startdate to $enddate.xlsx");
     }
@@ -55,54 +56,77 @@ class onecardController extends Controller
 
     public function coprint(Request $req)
     {
-        $validation=$req->validate([
-            "month"=>"required",
-            "branch"=>"required",
+        $validation = $req->validate([
+            "month" => "required",
+            "branch" => "required",
         ]);
-        $branch=$req->branch;
-        $year=substr($req->month, 0, 4);
-        $month=substr($req->month, 5, 2);
-        $date=$year.$month;
-        $data=new CO();
-        $co=$data->data($req);
+        $branch = $req->branch;
+        $year = substr($req->month, 0, 4);
+        $month = substr($req->month, 5, 2);
+        $date = $year . $month;
+        $data = new CO();
+        $co = $data->data($req);
         // dd($co);
-        return view('NewSwitch/Reports/Outstanding/Coshow', ['co'=>$co,'date'=>$date,'branch'=>$branch]);
+        return view('NewSwitch/Reports/Outstanding/Coshow', ['co' => $co, 'date' => $date, 'branch' => $branch]);
     }
 
-    public function codownload($date,$branch)
+    public function codownload($date, $branch)
     {
-        return Excel::download(new COExport($date,$branch), "Customer Outstanding list for $date ($branch Branch).xlsx");
-
+        return Excel::download(new COExport($date, $branch), "Customer Outstanding list for $date ($branch Branch).xlsx");
     }
 
-    public function annualfeehome()
+    public function AnnualFeeListingHome()
     {
-        return view('NewSwitch/Reports/CreditCard_AnnualFee/AnnualFeeHome');
+        return view('NewSwitch/Reports/CreditCard_AnnualFee/AnnualFeeListingHome');
     }
 
-    public function AnnualFeePrint(Request $req)
+    public function AnnualFeeListingPrint(Request $req)
     {
-        $validation=$req->validate([
-            "month"=>"required",
+        $validation = $req->validate([
+            "month" => "required",
+            "card" => "required",
         ]);
-        $year1=substr($req->month, 0, 4);
-        $month1=substr($req->month, 5, 2);
-        $date1=$year1.$month1;
-        $year2=substr($req->month, 0, 4)-1;
-        $month=substr($req->month, 5, 2)+"01";
-        $month2="0".$month;
-        $date2=$year2.$month2."01";
-        $data=new CCAnnualFee();
-        $annual=$data->data($req);
-        // dd($month1);
-        return view('NewSwitch/Reports/CreditCard_AnnualFee/AnnualFeeShow', 
-        ['annual'=>$annual,'month1'=>$month1,'date1'=>$date1,'date2'=>$date2]);        
+        $month = $req->month;
+        $card = $req->card;
+        if ($card === 'MPU_CLASSIC') {
+            $data = new AnnualFeeListing();
+            $MPU_CLASSIC = $data->MPU_CLASSIC($req);
+            // dd($MPU_CLASSIC);
+            return view(
+                'NewSwitch/Reports/CreditCard_AnnualFee/AnnualFeeListingShow',
+                ['month' => $month, 'card' => $card, 'datas' => $MPU_CLASSIC]
+            );
+        } elseif ($card === 'MPU_GOLD') {
+            $data = new AnnualFeeListing();
+            $MPU_GOLD = $data->MPU_GOLD($req);
+            // dd($MPU_GOLD);
+            return view(
+                'NewSwitch/Reports/CreditCard_AnnualFee/AnnualFeeListingShow',
+                ['month' => $month, 'card' => $card, 'datas' => $MPU_GOLD]
+            );
+        } elseif ($card === 'UPI_GOLD') {
+            $data = new AnnualFeeListing();
+            $UPI_GOLD = $data->UPI_GOLD($req);
+            // dd($UPI_GOLD);
+            return view(
+                'NewSwitch/Reports/CreditCard_AnnualFee/AnnualFeeListingShow',
+                ['month' => $month, 'card' => $card, 'datas' => $UPI_GOLD]
+            );
+        } elseif ($card === 'UPI_PLT') {
+            $data = new AnnualFeeListing();
+            $UPI_PLT = $data->UPI_PLT($req);
+            // dd($UPI_PLT);
+            return view(
+                'NewSwitch/Reports/CreditCard_AnnualFee/AnnualFeeListingShow',
+                ['month' => $month, 'card' => $card, 'datas' => $UPI_PLT]
+            );
+        }
     }
 
-    public function AnnualFeedownload($month1, $date2, $date1)
+    public function AnnualFeeListingDownload($month, $card)
     {
         // dd($date2);
-        return Excel::download(new CCAnnualFeeExport($month1, $date2, $date1), "$date1 Credit Card Annual Fee (Not Using Withing 1 year).xlsx");
+        return Excel::download(new AnnualFeeListingExport($month, $card), "Credit Card AnnualFeel Listing of $card in $month Month.xlsx");
     }
     public function cardhome()
     {
@@ -110,32 +134,36 @@ class onecardController extends Controller
     }
     public function cardprint(Request $req)
     {
-        $validation=$req->validate([
-            "startdate"=>"required",
-            "enddate"=>"required",
-            "brand"=>"required",
+        $validation = $req->validate([
+            "startdate" => "required",
+            "enddate" => "required",
+            "brand" => "required",
         ]);
-        $brand=$req->brand;
-        $startdate=substr($req->startdate, 0, 4).substr($req->startdate, 5, 2).substr($req->startdate, 8, 2);
-        $enddate=substr($req->enddate, 0, 4).substr($req->enddate, 5, 2).substr($req->enddate, 8, 2);
-        if ($req->brand==='MPU_DEBIT') {
-            $MPU_DEBIT=new cardlist();
-            $db =$MPU_DEBIT->MPU_DEBIT($req);
+        $brand = $req->brand;
+        $startdate = substr($req->startdate, 0, 4) . substr($req->startdate, 5, 2) . substr($req->startdate, 8, 2);
+        $enddate = substr($req->enddate, 0, 4) . substr($req->enddate, 5, 2) . substr($req->enddate, 8, 2);
+        if ($req->brand === 'MPU_DEBIT') {
+            $MPU_DEBIT = new cardlist();
+            $db = $MPU_DEBIT->MPU_DEBIT($req);
             // dd($db);
-        return view('NewSwitch/Reports/MOB_Card_List/cardshow', ['db'=>$db,'startdate'=>$startdate,'enddate'=>$enddate,
-        'brand'=>$req->brand]);
-        }else{
-            $MOB_UPI_DB=new cardlist();
-            $db =$MOB_UPI_DB->MOB_UPI_DB($req);
+            return view('NewSwitch/Reports/MOB_Card_List/cardshow', [
+                'db' => $db, 'startdate' => $startdate, 'enddate' => $enddate,
+                'brand' => $req->brand
+            ]);
+        } else {
+            $MOB_UPI_DB = new cardlist();
+            $db = $MOB_UPI_DB->MOB_UPI_DB($req);
             // dd($db);
-        return view('NewSwitch/Reports/MOB_Card_List/cardshow', ['db'=>$db,'startdate'=>$startdate,'enddate'=>$enddate,
-        'brand'=>$brand]);   
+            return view('NewSwitch/Reports/MOB_Card_List/cardshow', [
+                'db' => $db, 'startdate' => $startdate, 'enddate' => $enddate,
+                'brand' => $brand
+            ]);
         }
     }
-    public function cardlistdownload($startdate, $enddate,$brand)
+    public function cardlistdownload($startdate, $enddate, $brand)
     {
         // dd($date2);
-        return Excel::download(new cardlistExport($startdate, $enddate,$brand), "$brand CardList ($startdate to $enddate).xlsx");
+        return Excel::download(new cardlistExport($startdate, $enddate, $brand), "$brand CardList ($startdate to $enddate).xlsx");
     }
     public function onushome()
     {
@@ -143,16 +171,16 @@ class onecardController extends Controller
     }
     public function onusprint(Request $req)
     {
-        $validation=$req->validate([
-            "startdate"=>"required",
-            "enddate"=>"required",
+        $validation = $req->validate([
+            "startdate" => "required",
+            "enddate" => "required",
         ]);
-        $startdate=substr($req->startdate, 0, 4).substr($req->startdate, 5, 2).substr($req->startdate, 8, 2);
-        $enddate=substr($req->enddate, 0, 4).substr($req->enddate, 5, 2).substr($req->enddate, 8, 2);
-        $onus=new onus();
-        $db =$onus->onus($req);
+        $startdate = substr($req->startdate, 0, 4) . substr($req->startdate, 5, 2) . substr($req->startdate, 8, 2);
+        $enddate = substr($req->enddate, 0, 4) . substr($req->enddate, 5, 2) . substr($req->enddate, 8, 2);
+        $onus = new onus();
+        $db = $onus->onus($req);
         // dd($db);
-        return view('NewSwitch/Reports/Acquiring_Onus/onushow', ['db'=>$db,'startdate'=>$startdate,'enddate'=>$enddate]); 
+        return view('NewSwitch/Reports/Acquiring_Onus/onushow', ['db' => $db, 'startdate' => $startdate, 'enddate' => $enddate]);
     }
     public function onusdownload($startdate, $enddate)
     {
@@ -165,21 +193,20 @@ class onecardController extends Controller
     }
     public function creditlistprint(Request $req)
     {
-        $validation=$req->validate([
-            "month"=>"required",
+        $validation = $req->validate([
+            "month" => "required",
         ]);
-        $year=substr($req->month, 0, 4);
-        $month=substr($req->month, 5, 2);
-        $date=$year.$month;
-        $data=new creditstatus();
-        $creditstatus=$data->data($req);
+        $year = substr($req->month, 0, 4);
+        $month = substr($req->month, 5, 2);
+        $date = $year . $month;
+        $data = new creditstatus();
+        $creditstatus = $data->data($req);
         // dd($creditstatus);
-        return view('NewSwitch/Reports/MOB_Credit_Status/creditshow', ['cr'=>$creditstatus,'date'=>$date]);
+        return view('NewSwitch/Reports/MOB_Credit_Status/creditshow', ['cr' => $creditstatus, 'date' => $date]);
     }
     public function creditdownload($date)
     {
         return Excel::download(new creditstatusExport($date), "Credit Card Stauts ($date).xlsx");
-
     }
     public function export()
     {
