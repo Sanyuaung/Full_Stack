@@ -165,6 +165,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/delete', [ExcelImportController::class, "delete"])->name("delete");
     Route::post('/import', [ExcelImportController::class, "importfile"])->name("importfile");
 
+    //Sale_Ecom
+    Route::get('/SaleEcom', [onecardController::class, "SaleEcomHome"])->name("SaleEcomHome");
+    Route::get('/SaleEcomAll', [onecardController::class, "SaleEcomAll"])->name("SaleEcomAll");
+
+    Route::post('/SaleEcomAllprint', [onecardController::class, "SaleEcomAllprint"])->name("SaleEcomAllprint");
+    Route::get('/SaleEcomAllExport/{type}/{start}/{end}', [onecardController::class, "SaleEcomAllExport"])->name("SaleEcomAllExport");
+
+    Route::post('/SaleEcomByAmtprint', [onecardController::class, "SaleEcomByAmtprint"])->name("SaleEcomByAmtprint");
+    Route::get('/SaleEcomByAmtExport/{type}/{start}/{end}/{reqamt1}/{sign}', [onecardController::class, "SaleEcomByAmtExport"])->name("SaleEcomByAmtExport");
+
+    Route::get('/SaleEcomByAmtExport/{type}/{start}/{end}/{reqamt1}/{reqamt2}/{sign}', [onecardController::class, "SaleEcomBetweenExport"])->name("SaleEcomBetweenExport");
+
 
     // User Control
     Route::get('/usercontol', [AdminController::class, "home"])->name("userhome");

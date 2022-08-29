@@ -31,7 +31,7 @@ class creditstatus extends Model
             WHERE A.CARD_CRDACCT_NO = B.CSTMTACCT_ACCT_NO
             AND A.CARD_CUST_ID = C.ACCGRPLMT_CUST_ID
             AND B.CSTMTACCT_YYYYMM=$date
-            GROUP BY A.CARD_NO");
+            GROUP BY A.CARD_NO order by NO");
             // dd($co);
             return $creditstatus;
         }

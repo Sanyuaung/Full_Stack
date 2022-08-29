@@ -100,6 +100,9 @@ $data = json_decode(file_get_contents('http://forex.cbm.gov.mm/api/latest'));
                         <a id="a" href="{{ route('AnnualFeeListingHome') }}">Annual Fee Listing</a>
                     </li>
                     <li>
+                        <a id="a" href="{{ route('SaleEcomHome') }}">Ecommerce Transactions</a>
+                    </li>
+                    <li>
                         <a id="a" href="{{ route('pssd01home') }}">PSSD_01</a>
                     </li>
                     <li>

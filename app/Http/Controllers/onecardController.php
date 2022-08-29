@@ -10,12 +10,16 @@ use App\Exports\COExport;
 use App\Exports\creditstatusExport;
 use App\Exports\MerchantExport;
 use App\Exports\OnusExport;
+use App\Exports\SaleEcomByAmtExport;
+use App\Exports\SaleEcomAllExport;
+use App\Exports\SaleEcomBetweenExport;
 use App\Models\Atm;
 use App\Models\cardlist;
 use App\Models\AnnualFeeListing;
 use App\Models\CO;
 use App\Models\creditstatus;
 use App\Models\onus;
+use App\Models\Trans;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -211,5 +215,142 @@ class onecardController extends Controller
     public function export()
     {
         return Excel::download(new MerchantExport, "Merchant Lists.xlsx");
+    }
+    public function SaleEcomHome()
+    {
+        return view('NewSwitch/Reports/Transactions/SaleEcomHome');
+    }
+    public function SaleEcomAll()
+    {
+        return view('NewSwitch/Reports/Transactions/SaleEcomAll');
+    }
+    public function SaleEcomAllprint(Request $req)
+    {
+        $validation = $req->validate([
+            "trans" => "required",
+            "start" => "required",
+            "end" => "required",
+        ]);
+        $startdate = substr($req->start, 8, 2);
+        $startmonth = substr($req->start, 5, 2);
+        $startyear = substr($req->start, 0, 4);
+        $start = $startyear . $startmonth . $startdate;
+        $enddate = substr($req->end, 8, 2);
+        $endmonth = substr($req->end, 5, 2);
+        $endyear = substr($req->end, 0, 4);
+        $end = $endyear . $endmonth . $enddate;
+        $type = $req->trans;
+        $data = new Trans();
+        $trans = $data->trans($req);
+        // dd($trans);
+        return view('NewSwitch/Reports/Transactions/SaleEcomAllPrint', ['trans' => $trans, 'type' => $type, 'start' => $start, 'end' => $end,]);
+    }
+    public function SaleEcomAllExport($type, $start, $end)
+    {
+        return Excel::download(
+            new SaleEcomAllExport($type, $start, $end),
+            "$type All Transactions (From $start to $end).xlsx"
+        );
+    }
+    public function SaleEcomByAmt()
+    {
+        return view('NewSwitch/Reports/Transactions/SaleEcomByAmt');
+    }
+    public function SaleEcomByAmtprint(Request $req)
+    {
+        $validation = $req->validate([
+            "trans" => "required",
+            "start" => "required",
+            "end" => "required",
+        ]);
+        $startdate = substr($req->start, 8, 2);
+        $startmonth = substr($req->start, 5, 2);
+        $startyear = substr($req->start, 0, 4);
+        $start = $startyear . $startmonth . $startdate;
+        $enddate = substr($req->end, 8, 2);
+        $endmonth = substr($req->end, 5, 2);
+        $endyear = substr($req->end, 0, 4);
+        $end = $endyear . $endmonth . $enddate;
+        $type = $req->trans;
+        $reqamt1 = $req->reqamt1;
+        $reqamt2 = $req->reqamt2;
+        $sign = $req->sign;
+        if ($sign == 'All') {
+            $data = new Trans();
+            $alltrans = $data->alltrans($req);
+            return view(
+                'NewSwitch/Reports/Transactions/SaleEcomAllPrint',
+                ['trans' => $alltrans, 'type' => $type, 'start' => $start, 'end' => $end, 'sign' => $sign]
+            );
+        } else if ($sign == 'gt') {
+            $data = new Trans();
+            $GreaterThan = $data->GreaterThan($req);
+            return view(
+                'NewSwitch/Reports/Transactions/SaleEcomByAmtPrint',
+                ['trans' => $GreaterThan, 'type' => $type, 'start' => $start, 'end' => $end, 'sign' => $sign, 'reqamt1' => $reqamt1]
+            );
+        } else if ($sign == 'lt') {
+            $data = new Trans();
+            $LessThan = $data->LessThan($req);
+            return view(
+                'NewSwitch/Reports/Transactions/SaleEcomByAmtPrint',
+                ['trans' => $LessThan, 'type' => $type, 'start' => $start, 'end' => $end, 'sign' => $sign, 'reqamt1' => $reqamt1]
+            );
+        } else if ($sign == 'ge') {
+            $data = new Trans();
+            $ge = $data->ge($req);
+            return view(
+                'NewSwitch/Reports/Transactions/SaleEcomByAmtPrint',
+                ['trans' => $ge, 'type' => $type, 'start' => $start, 'end' => $end, 'sign' => $sign, 'reqamt1' => $reqamt1]
+            );
+        } else if ($sign == 'le') {
+            $data = new Trans();
+            $le = $data->le($req);
+            return view(
+                'NewSwitch/Reports/Transactions/SaleEcomByAmtPrint',
+                ['trans' => $le, 'type' => $type, 'start' => $start, 'end' => $end, 'sign' => $sign, 'reqamt1' => $reqamt1]
+            );
+        } else if ($sign == 'between') {
+            $data = new Trans();
+            $between = $data->between($req);
+            return view(
+                'NewSwitch/Reports/Transactions/SaleEcomBetweenPrint',
+                [
+                    'trans' => $between, 'type' => $type, 'start' => $start, 'end' => $end,
+                    'sign' => $sign, 'reqamt1' => $reqamt1, 'reqamt2' => $reqamt2
+                ]
+            );
+        }
+    }
+    public function SaleEcomByAmtExport($type, $start, $end, $reqamt1, $sign)
+    {
+        if ($sign == 'gt') {
+            return Excel::download(
+                new SaleEcomByAmtExport($type, $start, $end, $reqamt1, $sign),
+                "$type Transactions greater than $reqamt1 (From $start to $end).xlsx"
+            );
+        } else if ($sign == 'lt') {
+            return Excel::download(
+                new SaleEcomByAmtExport($type, $start, $end, $reqamt1, $sign),
+                "$type Transactions less than $reqamt1 (From $start to $end).xlsx"
+            );
+        } else if ($sign == 'ge') {
+            return Excel::download(
+                new SaleEcomByAmtExport($type, $start, $end, $reqamt1, $sign),
+                "$type Transactions greater than equal $reqamt1 (From $start to $end).xlsx"
+            );
+        } else if ($sign == 'le') {
+            return Excel::download(
+                new SaleEcomByAmtExport($type, $start, $end, $reqamt1, $sign),
+                "$type Transactions less than equal $reqamt1 (From $start to $end).xlsx"
+            );
+        }
+    }
+    public function SaleEcomBetweenExport($type, $start, $end, $reqamt1, $reqamt2, $sign)
+    {
+        return Excel::download(
+            new SaleEcomBetweenExport($type, $start, $end, $reqamt1, $reqamt2, $sign),
+            "$type Transactions between $reqamt1 and $reqamt2 (From $start to $end).xlsx"
+        );
     }
 }
